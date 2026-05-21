@@ -16,7 +16,7 @@ services:
       - saleor-pre-commit-cache:/root/.cache/pre-commit/
 
   dashboard:
-    image: ghcr.io/saleor/saleor-dashboard:3.22
+    image: ghcr.io/saleor/saleor-dashboard:3.23
     restart: unless-stopped
     ports:
       - 9000:80
@@ -45,6 +45,13 @@ services:
     ports:
       - 1025:1025 # SMTP Server
       - 8025:8025 # Mailpit UI
+    restart: unless-stopped
+
+  jaeger:
+    image: jaegertracing/jaeger:latest
+    ports:
+      - 16686:16686 # Jaeger UI
+      - 4317:4317 # OTLP gRPC
     restart: unless-stopped
 
 volumes:
