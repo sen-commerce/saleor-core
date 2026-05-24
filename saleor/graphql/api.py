@@ -50,6 +50,7 @@ from .warehouse.schema import (
     WarehouseMutations,
     WarehouseQueries,
 )
+from .custom.schema import CustomQueries
 from .webhook.schema import WebhookMutations, WebhookQueries
 from .webhook.subscription_types import WEBHOOK_TYPES_MAP, Subscription
 
@@ -112,6 +113,7 @@ class Query(
     TranslationQueries,
     WarehouseQueries,
     WebhookQueries,
+    CustomQueries,
 ):
     pass
 

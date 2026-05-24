@@ -1,0 +1,19 @@
+# ══════════════════════════════════════════════════════════════════
+# Google Cloud Build — Backend Build with BuildKit
+# ══════════════════════════════════════════════════════════════════
+
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '-t'
+      - 'us-central1-docker.pkg.dev/tiptoppick-gcp/saleor-repo/saleor-core:latest'
+      - '.'
+    env:
+      - 'DOCKER_BUILDKIT=1'
+
+images:
+  - 'us-central1-docker.pkg.dev/tiptoppick-gcp/saleor-repo/saleor-core:latest'
+
+options:
+  logging: CLOUD_LOGGING_ONLY

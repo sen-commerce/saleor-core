@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:1
 ### Build and install packages
 FROM python:3.12 AS build-python
 
