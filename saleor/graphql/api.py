@@ -21,6 +21,7 @@ from ..core.utils.cache import CacheDict
 from ..graphql.notifications.schema import ExternalNotificationMutations
 from .account.schema import AccountMutations, AccountQueries
 from .app.schema import AppMutations, AppQueries
+from .blog.schema import BlogMutations, BlogQueries
 from .attribute.schema import AttributeMutations, AttributeQueries
 from .attribute.types import ASSIGNED_ATTRIBUTE_TYPES
 from .channel.schema import ChannelMutations, ChannelQueries
@@ -94,6 +95,7 @@ class Query(
     AccountQueries,
     AppQueries,
     AttributeQueries,
+    BlogQueries,
     ChannelQueries,
     CheckoutQueries,
     CoreQueries,
@@ -121,6 +123,7 @@ class Query(
 class Mutation(
     AccountMutations,
     AppMutations,
+    BlogMutations,
     AttributeMutations,
     ChannelMutations,
     CheckoutMutations,

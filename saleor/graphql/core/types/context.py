@@ -20,10 +20,11 @@ class ChannelContextTypeForObjectType(Generic[N], BaseObjectType):
 
     @staticmethod
     def resolver_with_context(
-        attname, default_value, root: ChannelContext[N], info: ResolveInfo, **args
+        attname, default_value, root, info: ResolveInfo, **args
     ):
         resolver = get_default_resolver()
-        return resolver(attname, default_value, root.node, info, **args)
+        node = getattr(root, 'node', root)
+        return resolver(attname, default_value, node, info, **args)
 
     @staticmethod
     def resolve_translation(
@@ -43,8 +44,9 @@ class ChannelContextType(ChannelContextTypeForObjectType[T], ModelObjectType[T])
         abstract = True
 
     @staticmethod
-    def resolve_id(root: ChannelContext[T], _info: ResolveInfo):
-        return root.node.pk
+    def resolve_id(root, _info: ResolveInfo):
+        node = getattr(root, 'node', root)
+        return node.pk
 
     @classmethod
     def is_type_of(cls, root: ChannelContext[T] | T, _info: ResolveInfo) -> bool:

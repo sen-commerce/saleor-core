@@ -20,6 +20,8 @@ from .cleaners import (
 )
 from .utils import maybe_to_int
 
+
+
 # Note: we use AfterValidator to ensure type stability otherwise we may end up
 #       getting other types than ``str | None``
 Text = Annotated[str, AfterValidator(_clean_text)]
@@ -425,13 +427,29 @@ class EditorJSImageBlockModel(EditorJSBlock):
         return text
 
 
+# Extended block types (defined in a separate file to minimize changes to this file)
+from .models_extended import (
+    EditorJSChecklistBlockModel,
+    EditorJSCodeBlockModel,
+    EditorJSDelimiterBlockModel,
+    EditorJSRawBlockModel,
+    EditorJSTableBlockModel,
+    EditorJSWarningBlockModel,
+)
+
 EditorJSBlockModel = Annotated[
     EditorJSParagraphBlockModel
     | EditorJSHeaderBlockModel
     | EditorJSListBlockModel
     | EditorJSQuoteBlockModel
     | EditorJSEmbedBlockModel
-    | EditorJSImageBlockModel,
+    | EditorJSImageBlockModel
+    | EditorJSDelimiterBlockModel
+    | EditorJSCodeBlockModel
+    | EditorJSTableBlockModel
+    | EditorJSWarningBlockModel
+    | EditorJSChecklistBlockModel
+    | EditorJSRawBlockModel,
     Field(discriminator="type"),
 ]
 
