@@ -21,7 +21,6 @@ from .cleaners import (
 from .utils import maybe_to_int
 
 
-
 # Note: we use AfterValidator to ensure type stability otherwise we may end up
 #       getting other types than ``str | None``
 Text = Annotated[str, AfterValidator(_clean_text)]
@@ -169,6 +168,29 @@ class EditorJSImageDataModel(SizeDataModel):
     # This is invalid but kept for backward compatibility
     # (instead, user should put it in file.url)
     url: URL | None = None
+
+
+class EditorJSTableDataModel(StrictBaseModel):
+    """Match the data payload for an EditorJS table block.
+
+    Each cell goes through ``Text`` so inline HTML produced by the table's
+    inline toolbar (bold, italic, strikethrough, link) is sanitized with nh3.
+
+    Example:
+        {
+            "withHeadings": true,
+            "stretched": false,
+            "content": [
+                ["<b>Name</b>", "Qty"],
+                ["Apples", "3 pcs"]
+            ]
+        }
+
+    """
+
+    withHeadings: bool | None = None
+    stretched: bool | None = None
+    content: list[list[Text]] | None = None
 
 
 class EditorJSNestedListItemModel(StrictBaseModel):
